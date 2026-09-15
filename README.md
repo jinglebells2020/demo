@@ -4,8 +4,10 @@ Reference: https://youtu.be/ydIT4EdLK54 (Harvey, 3:52). Target: the same kind of
 **ИС ОТО** (информационная система организации труда осуждённых, КУИС МВД РК · AltaiLabs), built from the
 live demo stand at https://kuis-oto-app-production.up.railway.app.
 
-Current cut: **v3** (5:08, 33 scenes) — the v2 picture with the supplied orchestral track as the music bed. v2
-re-voiced the whole film with the Fish Audio S2.1 Pro free API, fixed every point flagged on v1 (logo, the «70 %» claim, kiosk camera, aimless pans, the
+Current cut: **v4** (5:26, 33 scenes): the voice re-generated with explicit stress marks on every word, abbreviations
+that read naturally (ИС ОТО letter by letter, ДУИС as a word, ЦАБД УИС and МВД in words), the better of two takes per
+line picked by whisper confidence, and a mix without compressor or limiter. v3 put the supplied orchestral track under
+the v2 picture; v2 re-voiced the whole film with the Fish Audio S2.1 Pro free API, fixed every point flagged on v1 (logo, the «70 %» claim, kiosk camera, aimless pans, the
 role comparison, 1С, the discrepancy form, real report exports, the closing facts) and adds two AI beats.
 
 | Folder | What is in it |
@@ -17,22 +19,23 @@ role comparison, 1С, the discrepancy form, real report exports, the closing fac
 | `pipeline/fish_tts.py` | Fish Audio TTS: `FISH_API_KEY=… python3 pipeline/fish_tts.py` → `voiceover/sNN.wav` + `durations.json` (S2.1 Pro free API, `model: s2.1-pro-free`; `--model s2.1-pro` for the paid tier, which falls back to the free one on HTTP 402) |
 | `pipeline/timing.py` | Scene timeline from measured VO durations → `pipeline/timing.json` |
 | `pipeline/make_music.py` | Fallback: a composed ambient bed (66 BPM, D major, pad + felt piano + bass) → `audio/music_bed.wav` (generated, not tracked); this is what v2 used |
-| `pipeline/mix_audio.py` | VO + music with sidechain ducking → `audio/mix.mp3`; a track shorter than the film is played once and crossfaded into a second pass timed so its natural ending lands on the last frame (`--music`, `--gain-db`, `--loop-at`, `--no-loop`) |
+| `pipeline/mix_audio.py` | VO + music → `audio/mix.mp3`. The music follows an explicit ducking envelope derived from the voice (no compressor, no limiter); a track shorter than the film is played once and crossfaded into a second pass timed so its natural ending lands on the last frame, slowed by a few percent if two passes would not otherwise span the film (`--music`, `--music-db`, `--duck-db`, `--music-tempo`, `--no-loop`) |
 | `pipeline/render_xlsx.py` | Renders an XLSX export from the stand as an Excel-look page for the screenshot in the export beat |
 | `pipeline/build_edit.py` | Generates the Higgsedit edit script (`build/edit.jsx`) and the sandbox fetch list; modes `frames` / `draft` / `final` |
 | `pipeline/map/kz_oblasts.json` | 17 oblast outlines + 3 city markers of Kazakhstan (2022 divisions) as absolute SVG paths, for the "map fills in" scene |
 | `pipeline/assets.json`, `pipeline/asset_sizes.json` | Higgsfield storage URLs and pixel sizes of every asset the edit uses |
-| `voiceover/` | Final VO (S2.1 Pro free API, voice `7312c38557eb4fb384e3874e8e9cea67`, speed 1.0, WAV); `voiceover-v1-…`, `-v2-…`, `-v3-…` are the earlier takes |
+| `voiceover/` | Final VO (S2.1 Pro free API, voice `7312c38557eb4fb384e3874e8e9cea67`, speed 1.0, WAV, stress-marked script, best of two takes) + `durations.json`; `voiceover-v1-…`, `-v2-…`, `-v3-…` are the earlier takes |
+| `pipeline/select_takes.py` | Picks the better of two take sets per line from faster-whisper word timestamps (script match, confidence, gaps, onset) |
 | `audio/` | `mix.mp3` — the final voice + music mix. The supplied track (`music-orchestral.mp3`) and the generated bed are not tracked: drop the track into `audio/` before running `mix_audio.py` |
 | `build/` | Generated `edit.jsx` + `fetch.sh` for the Higgsfield sandbox |
 | `renders/` | `storyboard.png` (one frame per scene) and `is-oto-overview-720p.mp4` (preview); the 1080p master is on Higgsfield storage (link below) |
 
-## Deliverables (v3)
+## Deliverables (v4)
 
-- **1080p master** (H.264 8 Mbps + AAC, 5:08, 248 MB): https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/07ab240f-1804-4c77-a8c4-beaf9a308810.mp4
-- **720p preview** (36 MB): `renders/is-oto-overview-720p.mp4` (also https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/4fef9205-e31a-4bae-a59d-7d28d5c40390.mp4)
+- **1080p master** (H.264 8 Mbps + AAC, 5:26): https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/d66a8900-d6d3-4ab5-8887-317216985174.mp4
+- **720p preview**: `renders/is-oto-overview-720p.mp4` (also https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/4306d307-5ef0-41b5-8ed7-7241c9f73da4.mp4)
 - **Storyboard** (33 scene frames): `renders/storyboard.png` (also https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/608d6a76-1f75-44f4-8ec6-25d2dfb66626.png)
-- Earlier masters, for comparison: v2 (same picture, generated ambient bed) https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/474f7569-633d-4266-b783-1d3a3e883d8c.mp4 · v1 https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/e9fdd0e3-db96-416f-bb99-c7985e99639e.mp4
+- Earlier masters, for comparison: v3 (orchestral track, old voice) https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/07ab240f-1804-4c77-a8c4-beaf9a308810.mp4 · v2 (generated ambient bed) https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/474f7569-633d-4266-b783-1d3a3e883d8c.mp4 · v1 https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/e9fdd0e3-db96-416f-bb99-c7985e99639e.mp4
 
 ## How the video is made (Harvey's recipe, our tools)
 
@@ -44,12 +47,16 @@ role comparison, 1С, the discrepancy form, real report exports, the closing fac
    kiosk person clip) were generated with Higgsfield (`gpt_image_2_5` + `seedance_2_5`). The logo itself is the
    product's own `public/proto/logo-mark.svg`.
 3. **Voice-over** is Fish Audio's S2.1 Pro free developer API (`model: s2.1-pro-free`), voice
-   `7312c38557eb4fb384e3874e8e9cea67`, speed 1.0, WAV. Abbreviations are written phonetically in `script.json`
-   (`tts` field) because the model reads hyphenated uppercase Cyrillic letters as English letters — verified with
-   faster-whisper on the takes. The paid `s2.1-pro` endpoint answers HTTP 402 on this key (no API credit).
-4. **Music** is the supplied orchestral track (2:39 of music in a 2:54 file). It plays once and is crossfaded at 2:29
-   into a second pass timed so that its final chord lands on the fade to black; it sits 12 dB under the voice with
-   sidechain ducking (`mix_audio.py`). The procedural bed from `make_music.py` is the fallback when no track is supplied.
+   `7312c38557eb4fb384e3874e8e9cea67`, speed 1.0, WAV. The `tts` field of `script.json` carries a stress mark on every
+   polysyllabic word (the model honours U+0301) and respelled abbreviations (a stress mark on every letter name of
+   ИС ОТО, «дуи́с» as a word, ЦАБД УИС and МВД expanded), see the TTS notes in `docs/02-is-oto-script.md`. Each line is
+   generated twice and `select_takes.py` keeps the take that faster-whisper transcribes most faithfully. The paid
+   `s2.1-pro` endpoint answers HTTP 402 on this key (no API credit).
+4. **Music** is the supplied orchestral track (2:39 of music in a 2:54 file), slowed by 4 % so that two passes span
+   the 5:26 film: it plays once and is crossfaded at 2:39 into a second pass timed so that its final chord lands on the
+   fade to black. It sits 12 dB under the voice and a further 9 dB down while the narrator speaks, following an
+   explicit envelope (`mix_audio.py`); nothing in the chain compresses or limits. The procedural bed from
+   `make_music.py` is the fallback when no track is supplied.
 5. **Motion graphics and assembly** are native Higgsedit compositions: paper background, Spectral serif numerals,
    Manrope UI captions, module grid, counters, map fill-in, pills, stepper, criteria bars, dark chapter cards,
    window push-ins and pans over the real UI (clamped to the page), screen recordings for the scroll moments.
@@ -60,7 +67,8 @@ role comparison, 1С, the discrepancy form, real report exports, the closing fac
 ## Reproduce
 
 ```bash
-FISH_API_KEY=sk-… python3 pipeline/fish_tts.py                          # 1. voice-over (S2.1 Pro free API)
+FISH_API_KEY=sk-… python3 pipeline/fish_tts.py                          # 1. voice-over (S2.1 Pro free API); run twice into two folders
+#    and pick per line with: python3 pipeline/select_takes.py <takes_a_words.json> <takes_b_words.json> (see its docstring)
 python3 pipeline/timing.py                                              # 2. timeline
 python3 pipeline/mix_audio.py                                           # 3. ducked mix with audio/music-orchestral.mp3
 #   (fallback: python3 pipeline/make_music.py 335 && python3 pipeline/mix_audio.py --music audio/music_bed.wav --gain-db -11.7 --duck-threshold 0.035 --duck-ratio 5 --no-loop)

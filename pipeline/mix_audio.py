@@ -26,13 +26,15 @@ ap.add_argument("--loop-at", type=float, default=None, help="film time where the
 ap.add_argument("--no-loop", action="store_true")
 ap.add_argument("--xfade", type=float, default=6.0)
 ap.add_argument("--music-end", type=float, default=None)
+ap.add_argument("--music-tempo", default="auto", help="atempo factor for the music; 'auto' slows it by up to 6 %% so that two passes span the film and the ending lands on the last frame")
 ap.add_argument("--edge-fade", type=float, default=0.015, help="fade in/out (s) applied to every VO clip")
 ap.add_argument("--out", default=os.path.join(ROOT, "audio", "mix.mp3"))
 a = ap.parse_args()
 
-def decode(path, stereo=True):
-    """Any audio file -> float32 array (n, 2) at 44.1 kHz."""
-    raw = subprocess.run([FF, "-v", "error", "-i", path, "-f", "f32le", "-ac", "2" if stereo else "1", "-ar", str(SR), "-"], capture_output=True, check=True).stdout
+def decode(path, stereo=True, tempo=None):
+    """Any audio file -> float32 array (n, 2) at 44.1 kHz (optionally time-stretched, pitch preserved)."""
+    af = ["-af", f"atempo={tempo:.4f}"] if tempo and abs(tempo - 1) > 1e-4 else []
+    raw = subprocess.run([FF, "-v", "error", "-i", path] + af + ["-f", "f32le", "-ac", "2" if stereo else "1", "-ar", str(SR), "-"], capture_output=True, check=True).stdout
     x = np.frombuffer(raw, dtype=np.float32)
     return x.reshape(-1, 2) if stereo else x
 
@@ -54,11 +56,21 @@ for s in T["scenes"]:
 vo *= a.vo_peak / max(1e-6, np.abs(vo).max())
 
 # ---- music: one pass, optionally crossfaded into a second pass so the real ending lands on the last frame ----
+def music_end_of(arr):
+    above = np.nonzero(np.abs(arr).max(axis=1) > 10 ** (-45 / 20))[0]
+    return above[-1] / SR if len(above) else len(arr) / SR
 m = decode(music)
-env_m = np.abs(m).max(axis=1)
-above = np.nonzero(env_m > 10 ** (-45 / 20))[0]
-end = a.music_end or (above[-1] / SR if len(above) else len(m) / SR)
+end = a.music_end or music_end_of(m)
 loop = not a.no_loop and end < total
+tempo = 1.0
+if loop and a.loop_at is None:
+    # two passes must span the film: pass 2 starts at total - end' and pass 1 must still be playing then
+    need = (total - 0.2 + a.xfade) / 2
+    if end < need:
+        t = float(a.music_tempo) if a.music_tempo != "auto" else max(0.94, end / need)
+        if end / t <= need + 1e-6 or a.music_tempo != "auto":
+            tempo = t; m = decode(music, tempo=tempo); end = music_end_of(m)
+            print(f"music slowed to {tempo:.4f} so that two passes cover {total} s (music now ends at {end:.2f} s)")
 if loop:
     loop_at = a.loop_at if a.loop_at is not None else round(total - end - 0.2, 2)
     xf = int(a.xfade * SR); la = int(loop_at * SR)
@@ -69,6 +81,8 @@ if loop:
     second = m.copy(); second[:xf] *= np.sqrt(np.linspace(0, 1, xf, dtype=np.float32))[:, None]
     out[:len(first)] += first; out[la:la + len(second)] += second
     m = out[:N]
+    if loop_at > end - a.xfade + 0.05:
+        print(f"WARNING: pass 1 ends at {end:.2f} s but pass 2 only starts at {loop_at:.2f} s -> {loop_at - end:.1f} s without music; pass --music-tempo or a shorter --xfade")
     print(f"music {os.path.basename(music)}: ends at {end:.2f} s, second pass at {loop_at:.2f} s (crossfade {a.xfade} s), natural ending at {loop_at + end:.2f} of {total} s")
 else:
     m = np.concatenate([m, np.zeros((max(0, N - len(m)), 2), dtype=np.float32)])[:N]
