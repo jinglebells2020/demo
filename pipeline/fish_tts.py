@@ -18,7 +18,7 @@ os.makedirs(OUT, exist_ok=True)
 key = os.environ.get("FISH_API_KEY")
 if not key: sys.exit("FISH_API_KEY is not set")
 MODEL_OVERRIDE = args[args.index("--model") + 1] if "--model" in args else None
-FALLBACK_MODEL = "s2.1-pro-free"   # used only when the paid model answers 402 (no API credit)
+FALLBACK_MODEL = "s2.1-pro-free"   # the free S2.1 Pro developer model; also the fallback when a paid model answers 402
 
 def ffmpeg():
     try:
@@ -38,14 +38,14 @@ durations = {}
 for sc in cfg["scenes"]:
     n, text = sc["n"], sc.get("tts") or sc.get("text") or ""
     if only and n not in only: continue
-    dst = os.path.join(OUT, f"s{n:02d}.mp3")
+    ext = voice.get("format", "mp3")
+    dst = os.path.join(OUT, f"s{n:02d}.{ext}")
     if not text.strip():
         durations[str(n)] = 0.0; continue
-    body = json.dumps({
-        "text": text, "reference_id": voice["reference_id"], "format": "mp3", "mp3_bitrate": 192,
-        "sample_rate": 44100, "normalize": True, "latency": "normal", "temperature": 0.6, "top_p": 0.7,
-        "prosody": {"speed": voice.get("speed", 1.0), "volume": 0, "normalize_loudness": True},
-    }).encode()
+    payload = {"text": text, "reference_id": voice["reference_id"], "format": ext, "sample_rate": 44100}
+    if ext == "mp3": payload["mp3_bitrate"] = 192
+    if voice.get("speed", 1.0) != 1.0: payload["prosody"] = {"speed": voice["speed"]}
+    body = json.dumps(payload).encode()
     for attempt in range(4):
         req = urllib.request.Request("https://api.fish.audio/v1/tts", data=body, method="POST", headers={
             "Authorization": f"Bearer {key}", "Content-Type": "application/json", "model": model})

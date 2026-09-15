@@ -226,5 +226,61 @@
 "dashboard-full.png": [
 3200,
 3990
+],
+"logo-mark.png": [
+1024,
+1024
+],
+"wordmark-element.png": [
+1052,
+256
+],
+"dashboard-employer-2.png": [
+3200,
+2000
+],
+"recruitment-new-filled.png": [
+3200,
+2000
+],
+"timesheets-discrepancies.png": [
+3200,
+2000
+],
+"timesheet-cell-form-error-2.png": [
+3200,
+2000
+],
+"contracts-labor-list.png": [
+3200,
+2000
+],
+"kiosk-checkpoint-phone-v2.png": [
+1170,
+2532
+],
+"kiosk-checkpoint-tablet-v2.png": [
+2048,
+1536
+],
+"kiosk-cabinet-phone-v2.png": [
+1170,
+2532
+],
+"export-report-6.png": [
+3200,
+2000
+],
+"export-report-9.png": [
+3200,
+2000
+],
+"export-convicts.png": [
+3200,
+2000
+],
+"convict-detail-staff.png": [
+3200,
+2000
 ]
 }

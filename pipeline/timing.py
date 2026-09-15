@@ -8,15 +8,15 @@ each VO line, tuned to Harvey's rhythm (short inside split sentences, longer at 
 import json, os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 d = json.load(open(os.path.join(ROOT, "voiceover", "durations.json")))
-PAD_DEFAULT = 0.6
-PAD = {1: 0.7, 5: 0.3, 7: 0.3, 9: 0.8, 22: 0.9, 25: 0.6, 29: 0.6, 31: 0.9}
-MIN = {1: 2.0, 9: 2.6, 22: 2.2, 25: 3.2, 29: 3.4}
-TAIL = 6.5  # scene 32: tagline + fade to black (no VO)
+PAD_DEFAULT = 0.55
+PAD = {1: 0.7, 5: 0.3, 7: 0.3, 9: 0.8, 24: 0.9, 27: 0.6, 30: 0.6, 32: 0.9}
+MIN = {1: 2.0, 9: 2.6, 24: 2.2, 27: 3.2, 30: 3.4}
+TAIL = 6.5  # scene 33: tagline + fade to black (no VO)
 scenes = []
 t = 0.0
-for n in range(1, 33):
+for n in range(1, 34):
     vo = float(d.get(str(n)) or 0.0)
-    dur = TAIL if n == 32 else max(vo + PAD.get(n, PAD_DEFAULT), MIN.get(n, 0))
+    dur = TAIL if n == 33 else max(vo + PAD.get(n, PAD_DEFAULT), MIN.get(n, 0))
     scenes.append({"n": n, "at": round(t, 3), "dur": round(dur, 3), "vo": round(vo, 3), "vo_at": round(t + 0.15, 3)})
     t += dur
 out = {"total": round(t, 3), "fps": 30, "scenes": scenes}
