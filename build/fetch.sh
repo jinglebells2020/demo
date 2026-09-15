@@ -46,7 +46,7 @@ curl -sS -f -m 240 -o 'media/cubes.png' 'https://d8j0ntlcm91z4.cloudfront.net/us
 curl -sS -f -m 240 -o 'media/devices.png' 'https://d8j0ntlcm91z4.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/hf_20260915_000112_8401b4b9-813e-4d6d-9c05-51e7a1c66469.png'
 curl -sS -f -m 240 -o 'media/mark3d.mp4' 'https://d8j0ntlcm91z4.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/hf_20260915_001145_3d1bc03e-bd8a-4603-8e73-110221fdc049.mp4'
 curl -sS -f -m 240 -o 'media/cubes.mp4' 'https://d8j0ntlcm91z4.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/hf_20260915_001145_dd71adb3-f4b5-4fb6-a6f8-fefcfc2e0312.mp4'
-curl -sS -f -m 240 -o 'media/mix.mp3' 'https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/f5ebadb7-5ef4-44ec-8b55-8284a115d475.mp3'
+curl -sS -f -m 240 -o 'media/mix.mp3' 'https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/47603038-d105-48a7-86cc-4e83e9aadd54.mp3'
 curl -sS -f -m 240 -o 'media/logo-mark.png' 'https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/8ecf4930-782b-4a8d-9605-41153e6a54de.png'
 curl -sS -f -m 240 -o 'media/dashboard-employer-2.png' 'https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/93ef9ccb-897a-4f93-b16b-bbd3cce1b3a5.png'
 curl -sS -f -m 240 -o 'media/recruitment-new-filled.png' 'https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/0900079e-baa8-4e66-9fb1-73a1ebccf4eb.png'

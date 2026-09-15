@@ -18,7 +18,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 try:
     import imageio_ffmpeg; FF = imageio_ffmpeg.get_ffmpeg_exe()
 except Exception: FF = "ffmpeg"
-ap = argparse.ArgumentParser(); ap.add_argument("--dir", required=True); ap.add_argument("--takes", default="a,b")
+ap = argparse.ArgumentParser(); ap.add_argument("--dir", required=True); ap.add_argument("--takes", default="a,b"); ap.add_argument("--prefix", default="voiceover-v5", help="take folders are <prefix><take>/")
 ap.add_argument("--apply", action="store_true"); a = ap.parse_args()
 d = json.load(open(os.path.join(ROOT, "pipeline", "script.json")))
 NUM = {'20': 'двадцать', '18': 'восемнадцать', '78': 'семьдесят восемь', '12': 'двенадцать', '41': 'сорок один', '25': 'двадцать пять',
@@ -41,7 +41,7 @@ for take in a.takes.split(","):
         heard = " ".join(w[2] for w in ws); probs = [w[3] for w in ws] or [0]
         sim = difflib.SequenceMatcher(None, norm(sc["text"]), norm(heard)).ratio()
         gaps = [round(ws[i + 1][0] - ws[i][1], 2) for i in range(len(ws) - 1) if ws[i + 1][0] - ws[i][1] > 0.6]
-        on = onset(os.path.join(ROOT, f"voiceover-v5{take}", f"s{n:02d}.wav"))
+        on = onset(os.path.join(ROOT, f"{a.prefix}{take}", f"s{n:02d}.wav"))
         low = [w[2] for w in ws if w[3] < 0.4]
         score = 3 * sim + float(np.mean(probs)) - 0.4 * len(low) - 0.5 * len(gaps) - (0.3 if on > 0.35 else 0)
         res.setdefault(n, {})[take] = dict(sim=round(sim, 3), mean=round(float(np.mean(probs)), 3), low=low, gaps=gaps, onset=round(on, 2), score=round(score, 3), heard=heard.strip())
@@ -50,6 +50,6 @@ for n, r in sorted(res.items()):
     best = max(r, key=lambda t: r[t]["score"]); pick[n] = best
     print(f"{n:2d} pick {best}  " + " | ".join(f"{t}: sim={v['sim']} mean={v['mean']} low={v['low']} gaps={v['gaps']} on={v['onset']}" for t, v in r.items()))
 if a.apply:
-    for n, t in pick.items(): shutil.copy(os.path.join(ROOT, f"voiceover-v5{t}", f"s{n:02d}.wav"), os.path.join(ROOT, "voiceover", f"s{n:02d}.wav"))
+    for n, t in pick.items(): shutil.copy(os.path.join(ROOT, f"{a.prefix}{t}", f"s{n:02d}.wav"), os.path.join(ROOT, "voiceover", f"s{n:02d}.wav"))
     json.dump({"picked": pick, "scores": res}, open(os.path.join(a.dir, "selection.json"), "w"), ensure_ascii=False, indent=1)
     print("applied", pick)
