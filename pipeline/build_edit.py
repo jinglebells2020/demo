@@ -91,12 +91,14 @@ __ASSET_ADDS__
   function win(k, o) {
     const w = o.w, h = o.h, mw = o.mw || w, mhh = o.mh || mh(k, mw);
     const anim = [];
-    const zd = o.zdur || o.dur;
+    const life = o.duration != null ? o.duration : o.dur;
+    const fit = (at, d) => (life != null ? Math.max(0.1, Math.min(d, life - at - 0.06)) : d);
+    const zd = fit(o.delay || 0, o.zdur || o.dur);
     if (o.zoom) anim.push({ property: 'scale', from: 1, to: o.zoom, at: o.delay || 0, duration: zd, easing: 'smooth' });
     if (o.dx) anim.push({ property: 'offsetX', from: 0, to: o.dx, at: o.delay || 0, duration: zd, easing: 'smooth' });
     if (o.dy) anim.push({ property: 'offsetY', from: 0, to: o.dy, at: o.delay || 0, duration: zd, easing: 'smooth' });
     const manim = [];
-    if (o.pan) manim.push({ property: 'offsetY', from: 0, to: -o.pan, at: o.pdelay || 0, duration: o.pdur || o.dur, easing: 'smooth' });
+    if (o.pan) manim.push({ property: 'offsetY', from: 0, to: -o.pan, at: o.pdelay || 0, duration: fit(o.pdelay || 0, o.pdur || o.dur), easing: 'smooth' });
     const wrap = { x: o.x, y: o.y, width: w, height: h, layout: 'none', origin: 'center' };
     if (anim.length) wrap.animate = anim;
     if (o.at != null) wrap.at = o.at;
@@ -165,7 +167,7 @@ __ASSET_ADDS__
 
   scene(2, C.paper, [
     ...grid(),
-    <frame x={60} y={150} width={MAP.w} height={MAP.h} layout="none" origin="center" animate={[{ property: 'scale', from: 1.05, to: 1, duration: D(2), easing: 'smooth' }]}>
+    <frame x={60} y={150} width={MAP.w} height={MAP.h} layout="none" origin="center" animate={[{ property: 'scale', from: 1.05, to: 1, duration: D(2) - 0.06, easing: 'smooth' }]}>
       {MAP.oblasts.map((s) => <path d={s.d} width={MAP.w} height={MAP.h} fill={C.mapBase} stroke={{ color: C.paper, width: 1.5 }} />)}
       {MAP.oblasts.map((s, i) => <path d={s.d} width={MAP.w} height={MAP.h} fill={C.mapInk} stroke={{ color: C.paper, width: 1.5 }} animate={[{ property: 'opacity', from: 0, to: 1, at: 0.7 + i * 0.12, duration: 0.5, easing: 'ease-out' }]} />)}
       {MAP.lakes.map((s) => <path d={s.d} width={MAP.w} height={MAP.h} fill={C.paper} />)}
@@ -230,7 +232,7 @@ __ASSET_ADDS__
   ]);
 
   scene(6, C.paper, [
-    <frame x={0} y={0} width={1920} height={1080} layout="none" origin="center" animate={[{ property: 'scale', from: 1.04, to: 1, duration: D(6), easing: 'smooth' }]}>
+    <frame x={0} y={0} width={1920} height={1080} layout="none" origin="center" animate={[{ property: 'scale', from: 1.04, to: 1, duration: D(6) - 0.06, easing: 'smooth' }]}>
       <media file={A.devices} x={0} y={-3} width={1920} height={1086} />
       <frame x={323} y={269} width={863} height={547} layout="none" clip animate={[{ property: 'opacity', from: 0, to: 1, at: 0.35, duration: 0.5 }]}>
         <media file={A.dashboard} x={0} y={0} width={863} height={539} />
@@ -354,7 +356,7 @@ __ASSET_ADDS__
   ]);
   scene(17, C.paper3, [
     win('signing', { x: 100, y: 56, w: 1080, h: 675, zoom: 1.08, dur: D(17) }),
-    win('production_print', { x: 1240, y: 56, w: 580, h: 968, pan: 500, pdelay: 1.2, pdur: D(17) - 1.4, fade: true, at: 0.6 }),
+    win('production_print', { x: 1240, y: 56, w: 580, h: 968, pan: 500, pdelay: 1.2, pdur: D(17) - 2.0, fade: true, at: 0.6, dur: D(17) - 0.6 }),
     card({ x: 100, y: 780, w: 1080, h: 244, at: 1.4, children: [
       tx('Печатные формы', { x: 32, y: 28, w: 900, h: 40, size: 28, font: 'sans600' }),
       tx('А4 · реквизиты и подписи · метка времени каждой версии', { x: 32, y: 78, w: 1000, h: 40, size: 22, color: C.ink2 }),
@@ -421,7 +423,7 @@ __ASSET_ADDS__
   // ---------- Act E ----------
   const tablet = (k, o) => (
     <frame x={o.x} y={o.y} width={1200} height={860} layout="none" origin="center" {...(o.at != null ? { at: o.at } : {})} {...(o.duration != null ? { duration: o.duration } : {})}
-      motion={{ enter: { from: { opacity: 0, y: 24 }, duration: 0.5 } }} animate={[{ property: 'scale', from: 1, to: o.zoom || 1.04, duration: o.dur, easing: 'smooth' }]}>
+      motion={{ enter: { from: { opacity: 0, y: 24 }, duration: 0.5 } }} animate={[{ property: 'scale', from: 1, to: o.zoom || 1.04, duration: Math.max(0.1, (o.duration != null ? o.duration : o.dur) - 0.06), easing: 'smooth' }]}>
       <rect x={0} y={0} width={1200} height={860} radius={40} fill="#26231d" />
       <rect x={20} y={20} width={1160} height={820} radius={24} fill="#0f0e0c" />
       <frame x={32} y={32} width={1136} height={796} layout="none" clip radius={14} background={C.sheet}>
