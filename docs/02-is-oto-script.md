@@ -85,3 +85,38 @@ Legend for the "Asset" column: **UI** = real screenshot/recording of the live ap
 - **Real UI only.** Every product shot is a capture of the live demo stand; nothing is mocked. «ИМИТАЦИЯ» plates stay visible where the app shows them.
 - **Motion.** Ease-out 300–500 ms, staggers 50–80 ms, push-ins ≤ 1.3×, one continuous 3D rotation, two hard cuts to dark. No bounces.
 - **Numbers.** Always a serif numeral with a small sans caption beside it, never a bare number in prose.
+
+---
+
+## Build notes (Higgsedit in the Higgsfield sandbox)
+
+The sandbox is ephemeral, so every run re-fetches its inputs. `pipeline/build_edit.py` writes `build/edit.jsx`
+(timeline, map paths and asset sizes baked in) and `build/fetch.sh` (one `curl` per asset). The run is:
+
+```bash
+higgsedit new proj --size 1920x1080 --fps 30 && cd proj
+curl -o fetch.sh <fetch.sh URL> && bash fetch.sh            # screenshots, recordings, generated clips, mix.mp3, TTFs
+curl -o edit.jsx <edit.jsx URL>
+higgsedit fonts add . "Manrope:400" "Manrope:500" "Manrope:600" "Spectral:400" "Spectral:500"
+# Google Fonts delivers Latin-only subsets (218 glyphs) -> swap in full Cyrillic files built from the upstream TTFs
+pip install fonttools brotli && python3 - <<'PY'
+from fontTools.ttLib import TTFont
+from fontTools.varLib import instancer
+def w2(t, out): t.flavor='woff2'; t.save(out)
+for w in (400,500,600): w2(instancer.instantiateVariableFont(TTFont('fonts-src/Manrope[wght].ttf'), {'wght': w}), f'fonts/manrope-{w}.woff2')
+w2(TTFont('fonts-src/Spectral-Regular.ttf'), 'fonts/spectral-400.woff2'); w2(TTFont('fonts-src/Spectral-Medium.ttf'), 'fonts/spectral-500.woff2')
+PY
+higgsedit build edit.jsx                                    # frames | draft | final, per --mode
+```
+
+Findings that shaped the generator:
+
+- Higgsedit's native shaping path (`typography.fontAssetId`) is single-script per text node and rejects common
+  punctuation (·, —) inside a Cyrillic paragraph, so the edit uses the legacy `fontFamily` path with the font files
+  replaced as above. The built-in Inter and Playfair Display also carry Cyrillic (Inter even the Kazakh letters) and
+  are the fallback: `build_edit.py --sans Inter --serif "Playfair Display"`.
+- Media nodes get explicit geometry (no `fit`), which is the only way to guarantee the screenshot's top-left is what
+  the window shows; push-ins are `scale` on a wrapper frame with `origin="center"`, pans are `offsetY` on the media.
+- The audio spine is one pre-mixed file (`audio/mix.mp3`), cut once at 0; every picture element is a `compose` overlay.
+- Word-by-word text reveals (`motion.by = "word"`) work with `fontFamily` text; counters need a fixed-size
+  `layout="none"` frame with a single static text template.
