@@ -1,7 +1,7 @@
 # ИС ОТО — Platform Overview (Harvey-style script), v2
 
-Target: 5:08, 16:9, 1920×1080, 30 fps. One narrator (Russian), composed music bed ducked under the voice, no
-on-camera people. Same act structure as Harvey: proof → flagship chapter → integrations → three shorter pillars →
+Target: 5:08, 16:9, 1920×1080, 30 fps. One narrator (Russian), an orchestral music bed (supplied track) ducked under the voice,
+no on-camera people. Same act structure as Harvey: proof → flagship chapter → integrations → three shorter pillars →
 proof → tagline. Every number in the narration is a product fact (module count, roles, number of typical forms and
 reports, Order № 735) or a demo-stand figure that the app itself shows on screen.
 
@@ -102,7 +102,7 @@ shapes, counters, cards). "t" is the scene start in the delivered cut.
 | 3:22 | kiosk cam view | Re-captured kiosk in the «Лицо считано» state on the phone (scene 29) |
 | 3:38 | «107 сценариев / 0 обращений» is not relevant | Removed; the closing facts are 20 modules · 7 roles · 2 languages · 0 external calls + Order № 735 (scene 32) |
 | — | mention the AI features | Two new beats: ИИ-справка по осуждённому and ИИ-оценка кандидатов (scenes 16–17), with their own VO lines |
-| whole | voice quality | Re-voiced with the S2.1 Pro free API, natural speed, phonetic abbreviations (see below); composed music bed with sidechain ducking |
+| whole | voice quality | Re-voiced with the S2.1 Pro free API, natural speed, phonetic abbreviations (see below); music bed with sidechain ducking (v2: composed ambient bed; v3: the supplied orchestral track) |
 
 ## TTS notes (why the lines in `script.json` have a `tts` twin)
 
@@ -121,7 +121,7 @@ holds after pills and before chapter cuts).
 - **Real UI first.** Every product shot is a capture of the live demo stand. The two AI panels are the exception: the stand hides the AI tab without a model key (and the convict/contract detail routes currently error), so they are rebuilt from the app's own dictionary strings (`lib/i18n/dictionaries/ru/ai.ts`) and carry the app's «Демонстрационный ответ: модель не вызывалась» chip. «ИМИТАЦИЯ» plates stay visible where the app shows them.
 - **Motion.** Ease-out 300–500 ms, staggers 50–80 ms, push-ins ≤ 1.2×, pans clamped to the page, one continuous 3D rotation, two hard cuts to dark. No bounces.
 - **Numbers.** Always a serif numeral with a small sans caption beside it, never a bare number in prose.
-- **Music.** A composed ambient bed (`pipeline/make_music.py`: 66 BPM, D major, pad + felt piano + bass, fade-in, swell into the tagline, fade-out), mixed at −12 dB under the voice with sidechain ducking (`mix_audio.py`).
+- **Music.** The supplied orchestral track (2:39 of music). It plays once from the first frame and is crossfaded (6 s, equal-power) at 2:29 into a second pass placed so that the piece's final chord lands on the fade to black at 5:07; the seam sits in the piece's quiet passage under narration. Mixed at −12 dB with sidechain ducking under the voice (threshold 0.05, ratio 2.5, release 1.2 s), so it rides about 10–14 dB under the narration and comes up in the pauses and the tagline. The composed ambient bed (`pipeline/make_music.py`) is the fallback.
 
 ---
 
@@ -148,6 +148,10 @@ higgsedit build edit.jsx                                    # frames mode: 33 st
 higgsedit render . --out renders/is-oto-overview.mp4 --bitrate 8M   # 9238 frames, ~35 ms/frame on 7 workers
 ffmpeg -i renders/is-oto-overview.mp4 -vf scale=1280:720 -c:v libx264 -crf 23 -c:a aac -b:a 160k renders/is-oto-overview-720p.mp4
 ```
+
+v3 changed only the music, so the picture was not re-rendered: the new `audio/mix.mp3` was muxed onto the v2 master
+(`ffmpeg -i master.mp4 -i mix.mp3 -map 0:v -map 1:a -c:v copy -c:a aac -b:a 192k`) and the 720p preview re-encoded
+from that. A rebuild from scratch picks the new mix up through `pipeline/assets.json` → `build/fetch.sh`.
 
 Findings that shaped the generator:
 
