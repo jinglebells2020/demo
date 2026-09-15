@@ -350,7 +350,7 @@ __ASSET_ADDS__
     tx('Демонстрационный ответ: модель не вызывалась', { x: x + 18, y: y + 7, w: 450, h: 24, size: 16, font: 'sans500', color: C.warnInk }),
   ];
   scene(16, C.paper3, [
-    win('convict_detail_staff', { x: 80, y: 228, w: 1000, h: 625, zoom: 1.08, dur: D(16) }),
+    win('convicts', { x: 80, y: 228, w: 1000, h: 625, zoom: 1.08, dur: D(16) }),
     card({ x: 1140, y: 90, w: 700, h: 900, at: 0.4, children: [
       label('ИИ-помощник', { x: 32, y: 26, w: 400, h: 24 }),
       tx('ИИ-справка по осуждённому', { x: 32, y: 52, w: 640, h: 40, size: 28, font: 'sans600' }),
@@ -521,7 +521,7 @@ __ASSET_ADDS__
       <frame x={300} y={100} width={420} height={880} layout="none" motion={{ enter: { from: { opacity: 0, y: 24 }, duration: 0.5 } }}>
         <rect x={0} y={0} width={420} height={880} radius={52} fill="#26231d" />
         <frame x={18} y={18} width={384} height={844} layout="none" clip radius={38} background="#0f0e0c">
-          <media file={A.kiosk_checkpoint_phone_v2} x={0} y={0} width={384} height={831} />
+          <media file={A.kiosk_cabinet_phone_v2} x={0} y={0} width={384} height={831} />
         </frame>
       </frame>,
       win('face_id', { x: 800, y: 215, w: 1040, h: 650, zoom: 1.1, dur: a, duration: a, fade: true }),
