@@ -4,7 +4,7 @@ Reference: https://youtu.be/ydIT4EdLK54 (Harvey, 3:52). Target: the same kind of
 **ИС ОТО** (информационная система организации труда осуждённых, КУИС МВД РК · AltaiLabs), built from the
 live demo stand at https://kuis-oto-app-production.up.railway.app.
 
-Current cut: **v5** (5:20, 33 scenes): plain-text voice (the stress marks of v4 turned out to break the model's own
+Current cut: **v6** (33 scenes): plain-text voice (the stress marks of v4 turned out to break the model's own
 stress placement and were removed), abbreviations that read naturally (ИС ОТО letter by letter, ДУИС as a word, ЦАБД УИС
 and МВД in words), the better of two takes per line picked by whisper confidence, and a mix without compressor or limiter. v3 put the supplied orchestral track under
 the v2 picture; v2 re-voiced the whole film with the Fish Audio S2.1 Pro free API, fixed every point flagged on v1 (logo, the «70 %» claim, kiosk camera, aimless pans, the
@@ -30,12 +30,12 @@ role comparison, 1С, the discrepancy form, real report exports, the closing fac
 | `build/` | Generated `edit.jsx` + `fetch.sh` for the Higgsfield sandbox |
 | `renders/` | `storyboard.png` (one frame per scene) and `is-oto-overview-720p.mp4` (preview); the 1080p master is on Higgsfield storage (link below) |
 
-## Deliverables (v5)
+## Deliverables (v6)
 
-- **1080p master** (H.264 8 Mbps + AAC, 5:20): https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/19d52522-5bcd-4692-b674-0a76e2b1a5ff.mp4
-- **720p preview**: `renders/is-oto-overview-720p.mp4` (also https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/f476536d-0004-4c5d-8054-784cd969230c.mp4)
+- **1080p master** (H.264 8 Mbps + AAC): https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/24900d5d-9144-4d46-a8c7-97b2df4c83be.mp4
+- **720p preview**: `renders/is-oto-overview-720p.mp4` (also https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/537d4e14-3da1-41a1-86e0-5e16e153910e.mp4)
 - **Storyboard** (33 scene frames): `renders/storyboard.png` (also https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/608d6a76-1f75-44f4-8ec6-25d2dfb66626.png)
-- Earlier masters, for comparison: v4 (stress-marked voice, rejected) https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/d66a8900-d6d3-4ab5-8887-317216985174.mp4 · v3 (orchestral track, v2 voice) https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/07ab240f-1804-4c77-a8c4-beaf9a308810.mp4 · v2 (generated ambient bed) https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/474f7569-633d-4266-b783-1d3a3e883d8c.mp4 · v1 https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/e9fdd0e3-db96-416f-bb99-c7985e99639e.mp4
+- Earlier masters, for comparison: v5 (before the last rewording) https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/19d52522-5bcd-4692-b674-0a76e2b1a5ff.mp4 · v4 (stress-marked voice, rejected) https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/d66a8900-d6d3-4ab5-8887-317216985174.mp4 · v3 (orchestral track, v2 voice) https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/07ab240f-1804-4c77-a8c4-beaf9a308810.mp4 · v2 (generated ambient bed) https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/474f7569-633d-4266-b783-1d3a3e883d8c.mp4 · v1 https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/e9fdd0e3-db96-416f-bb99-c7985e99639e.mp4
 
 ## How the video is made (Harvey's recipe, our tools)
 

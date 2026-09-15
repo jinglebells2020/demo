@@ -28,7 +28,7 @@ shapes, counters, cards). "t" is the scene start in the delivered cut.
 | 5 | 0:35 | access anywhere (fragments) | Система доступна везде: | White UI fragments (the dashboard KPI card, a status chip, nav items) float in around the real mark | native + UI crops |
 | 6 | 0:37 | desktop / mobile / MS | в браузере на планшете сотрудника, в приложении для Android и на киосках Face ID. | Tablet with the dashboard, phone with the kiosk checkpoint (live camera feed), device lineup | UI + HF-vid + HF-img |
 | 7 | 0:43 | compliance icons | Она построена по требованиям силового ведомства: | Row of four circular icons: Суверенный контур · Права на уровне запроса · Журнал аудита · RU/KZ | native |
-| 8 | 0:46 | 3D cube | суверенный контур без единого внешнего обращения, права на уровне запроса к базе, журнал аудита каждого действия и двуязычный интерфейс. | Rotating clay cube cluster with the mark, captions per requirement | HF-vid |
+| 8 | 0:46 | 3D cube | замкнутый контур ведомства, права на уровне запроса к базе, журнал аудита каждого действия и двуязычный интерфейс. | Rotating clay cube cluster with the mark, captions per requirement | HF-vid |
 
 ## Act B — Flagship: Панель руководителя → Подбор → ИИ → Договор (0:56–2:58)
 
@@ -37,7 +37,7 @@ shapes, counters, cards). "t" is the scene start in the delivered cut.
 | 9 | 0:56 | "Assistant" pill | Панель руководителя отвечает на главный вопрос: дотягиваем ли до цели. | Sage panel; pill «▣ Панель руководителя» | native |
 | 10 | 1:02 | prompt box + sources | Все цифры считаются из базы в момент открытия страницы — динамика за двенадцать месяцев, рейтинг учреждений, отстающие, истекающие договоры и незакрытые расследования. | Admin dashboard push-in, then the screen recording scrolling the dashboard | UI |
 | 11 | 1:15 | "for example, as a litigator…" | Например, руководитель видит учреждение с занятостью сорок один процент, резерв незанятых трудоспособных — и свободные площадки этого же учреждения. | Facilities catalog window, push-in clamped to the page (no empty scroll) | UI |
-| 12 | 1:26 | upload complaint | Работодатель создаёт запрос на подбор: швея, двадцать пять человек, разряд не ниже третьего. | Employer role: filled «Создать запрос» form; side card «Запрос на подбор» with the three values | UI + native |
+| 12 | 1:26 | upload complaint | Работодатель создаёт запрос на подбор: двадцать пять швей, разряд не ниже третьего. | Employer role: filled «Создать запрос» form; side card «Запрос на подбор» with the three values | UI + native |
 | 13 | 1:33 | "improve prompt" | Он видит только своих работников, кандидатов и договоры — ограничение действует на уровне запроса к базе, а не пункта меню. | Employer dashboard; card «Представитель работодателя · Видит только своё» listing the employer's two sections against the admin's full menu | UI + native |
 | 14 | 1:42 | 100 model calls diagram | Подбор — ключевой момент. Система ранжирует кандидатов по шести критериям: профессия, разряд, медицинские ограничения, инструктаж по охране труда, дисциплина и остаток срока — и объясняет каждый балл. | Staff recruitment ranking; card «Почему этот кандидат» with six criteria bars summing to 100 | UI + native |
 | 15 | 1:58 | citations / versions | Осуждённые без действующего инструктажа и с медицинскими ограничениями исключаются полностью, а не понижаются в рейтинге. Проверка встроена в операцию. | Readiness registry; card «Сводка исключённых» | UI + native |
@@ -51,7 +51,7 @@ shapes, counters, cards). "t" is the scene start in the delivered cut.
 | # | t | Harvey beat | VO (ru) | On screen | Asset |
 |---|---|---|---|---|---|
 | 20 | 2:58 | Harvey + Microsoft lockup | ИС ОТО работает как модуль расширения над ЦАБД УИС и связывает реестр осуждённых, события СКУД, электронную подпись и обмен с 1С в одном контуре. | Wordmark «модуль расширения» over ЦАБД УИС; four rows: реестр осуждённых · СКУД · ЭЦП · **1С (обмен по кадрам и заработной плате)** | native |
-| 21 | 3:13 | Word demo | В табеле — месячная сетка: строки — люди, колонки — дни, ячейки — часы и статус. Рядом — события проходов через КПП. | Full timesheet grid, slow pan across the month | UI |
+| 21 | 3:13 | Word demo | В табеле — месячная сетка: строки — люди, колонки — дни, ячейки — часы и статус. Рядом — события проходов через контрольно-пропускной пункт. | Full timesheet grid, slow pan across the month | UI |
 | 22 | 3:24 | playbook flags | Расхождение показаний СКУД и ручного ввода не скрывается: система требует обоснование и не сохранит корректировку без него. | Discrepancies page, then the real cell form in its error state with the app's message «Укажите обоснование корректировки — без него запись не сохраняется» anchored to the form | UI + native |
 | 23 | 3:33 | Outlook summaries | Импорт ведомости зачисляет зарплату на лицевые счета в той же транзакции, а закрытие периода само формирует распоряжения на перевод. | Payroll page → transfers page | UI |
 
@@ -61,7 +61,7 @@ shapes, counters, cards). "t" is the scene start in the delivered cut.
 |---|---|---|---|---|---|
 | 24 | 3:43 | "Vault" dark card | Отчётность. | Black (ops-bg #14120d) card; pill «▤ Отчётность» | native |
 | 25 | 3:45 | folders grid | Рейтинг трудозанятости, травматизм по кварталам, иски и погашение — каждый отчёт считается из той же базы, что и табель, в момент открытия. | Reports list → report 6 → report 9 | UI |
-| 26 | 3:56 | sync with DMS / 100k files | Экспорт в Excel — числа остаются числами и суммируются. Печатная форма — А4 с реквизитами и подписями. | The real `report-6.xlsx` exported from the stand, rendered as a spreadsheet (chip «выгрузка с демонстрационного стенда»), then the A4 print form | UI (derived) |
+| 26 | 3:56 | sync with DMS / 100k files | Экспорт в электронную таблицу — числа остаются числами и суммируются. Печатная форма — А4 с реквизитами и полем для подписи. | The real `report-6.xlsx` exported from the stand, rendered as a spreadsheet (chip «выгрузка с демонстрационного стенда»), then the A4 print form | UI (derived) |
 
 ## Act E — Кабинет, Face ID, магазин (4:05–4:35)
 
@@ -69,7 +69,7 @@ shapes, counters, cards). "t" is the scene start in the delivered cut.
 |---|---|---|---|---|---|
 | 27 | 4:05 | "Review tables" wide | Личный кабинет осуждённого превращает учёт в сервис. | Pill «Кабинет осуждённого»; tablet frame with the cabinet home | native + UI |
 | 28 | 4:09 | select files / build columns | Лицевой счёт с выпиской, заявления о распределении зарплаты, документы с подписью PIN-кодом и отклики на вакансии — на планшете, крупным шрифтом. | Tablet: cabinet tabs (счёт, заявления, документы, вакансии) | UI |
-| 29 | 4:21 | cells fill + 96 % stat | Киоски Face ID фиксируют проходы, не сохраняя ни одного изображения: в систему уходит только необратимый дескриптор. Магазин учреждения держит лимит на виду, а выдачу — под контролем сотрудника. | Face ID settings page, phone with the kiosk in its «Лицо считано» state (live camera feed), shop page | UI + HF-vid |
+| 29 | 4:21 | cells fill + 96 % stat | Терминалы распознавания лиц фиксируют проходы, не сохраняя ни одного изображения: в систему уходит только необратимый дескриптор. Магазин учреждения держит лимит на виду, а выдачу — под контролем сотрудника. | Face ID settings page, phone with the kiosk in its «Лицо считано» state (live camera feed), shop page | UI + HF-vid |
 
 ## Act F — Витрина и вывод на работу (4:35–4:56)
 
@@ -82,7 +82,7 @@ shapes, counters, cards). "t" is the scene start in the delivered cut.
 
 | # | t | Harvey beat | VO (ru) | On screen | Asset |
 |---|---|---|---|---|---|
-| 32 | 4:56 | 700+ deployments + client cards | Двадцать модулей, семь ролей, два языка и ноль внешних обращений. ИС ОТО построена по Правилам организации труда осуждённых — приказу МВД Республики Казахстан номер семьсот тридцать пять. | Four fact cards: 20 модулей · 7 ролей · 2 языка · 0 внешних обращений, then the Order № 735 line | native |
+| 32 | 4:56 | 700+ deployments + client cards | Двадцать модулей, семь ролей, два языка интерфейса. ИС ОТО построена по Правилам организации труда осуждённых — приказу МВД Республики Казахстан номер семьсот тридцать пять. | «20 модулей» numeral, then four fact cards: 7 ролей · 2 языка · 15 отчётов и 7 форм ДУИС · № 735 | native |
 | 33 | 5:13 | "AI Tailored for Law" | (music only) | «Труд осуждённых — в цифровом контуре.» (serif) above the wordmark; «ТОО «AltaiLabs» · КУИС МВД Республики Казахстан · 2026»; fade to black | native |
 
 ---
@@ -107,6 +107,8 @@ shapes, counters, cards). "t" is the scene start in the delivered cut.
 | whole | voice quality | Re-voiced with the S2.1 Pro free API, natural speed, phonetic abbreviations (see below); music bed with sidechain ducking (v2: composed ambient bed; v3: the supplied orchestral track) |
 | whole (v4) | abbreviations mispronounced | «и-эс о-тэ-о» came out as one word («исото»), «дэ-у-и-эс» as English letters, «цэ-а-бэ-дэ» / «эм-вэ-дэ» smeared. Now: ИС ОТО is spelled with a stress mark on every letter name (и́-э́с о́-тэ́-о́) and expanded once in the opening line; ДУИС is the word «дуи́с»; ЦАБД УИС and МВД are read out in words |
 | whole (v4) | wrong stress in some words | v4 tried explicit stress marks (U+0301) on every word — wrong: the model does not honour them and moved the stress of ~40 marked words to random syllables. v5 is plain text again; the residual stress errors of the plain model have to be fixed line by line (re-rolls, rewording) |
+| v5 | суверенный, швея, КПП, эксель, подписями, киоски, Face ID | v6 rewords each spot so the model cannot misplace the stress: «замкнутый контур ведомства», «двадцать пять швей», «контрольно-пропускной пункт», «электронную таблицу», «полем для подписи», «терминалы распознавания лиц» |
+| v5 | «внешние обращения» is not a selling point for this audience | Dropped from the narration (scenes 8 and 32) and from the closing fact card, which now says «15 отчётов и 7 типовых форм ДУИС» |
 | whole (v4) | audible artefacts | Two takes per line, the cleaner one chosen by whisper word confidence (garbled words such as «с Руэнска» for «срока» or a swallowed «корректировку» were dropped); 15 ms edge fades on every clip; the mix no longer runs through a compressor or limiter — the music follows an explicit ducking envelope instead |
 
 ## TTS notes (why the lines in `script.json` have a `tts` twin)

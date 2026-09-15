@@ -36,7 +36,7 @@ for take in a.takes.split(","):
     words = json.load(open(os.path.join(a.dir, f"takes_{take}_words.json"))); off = json.load(open(os.path.join(a.dir, f"takes_{take}_offsets.json")))
     for sc in d["scenes"]:
         n = sc["n"]
-        if not sc.get("tts"): continue
+        if not sc.get("tts") or str(n) not in off: continue
         o = off[str(n)]; ws = [w for w in words if w[0] >= o["start"] - 0.3 and w[1] <= o["end"] + 0.3]
         heard = " ".join(w[2] for w in ws); probs = [w[3] for w in ws] or [0]
         sim = difflib.SequenceMatcher(None, norm(sc["text"]), norm(heard)).ratio()
