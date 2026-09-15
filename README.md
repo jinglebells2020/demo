@@ -32,8 +32,8 @@ role comparison, 1С, the discrepancy form, real report exports, the closing fac
 
 ## Deliverables (v5)
 
-- **1080p master** (H.264 8 Mbps + AAC, 5:20): https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/99f6417f-5b4d-4e85-8f27-c0dbf882db6a.mp4
-- **720p preview**: `renders/is-oto-overview-720p.mp4` (also https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/f3698967-0cc5-4eed-aeef-21998ff54794.mp4)
+- **1080p master** (H.264 8 Mbps + AAC, 5:20): https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/19d52522-5bcd-4692-b674-0a76e2b1a5ff.mp4
+- **720p preview**: `renders/is-oto-overview-720p.mp4` (also https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/f476536d-0004-4c5d-8054-784cd969230c.mp4)
 - **Storyboard** (33 scene frames): `renders/storyboard.png` (also https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/608d6a76-1f75-44f4-8ec6-25d2dfb66626.png)
 - Earlier masters, for comparison: v4 (stress-marked voice, rejected) https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/d66a8900-d6d3-4ab5-8887-317216985174.mp4 · v3 (orchestral track, v2 voice) https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/07ab240f-1804-4c77-a8c4-beaf9a308810.mp4 · v2 (generated ambient bed) https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/474f7569-633d-4266-b783-1d3a3e883d8c.mp4 · v1 https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/e9fdd0e3-db96-416f-bb99-c7985e99639e.mp4
 
@@ -48,7 +48,7 @@ role comparison, 1С, the discrepancy form, real report exports, the closing fac
    product's own `public/proto/logo-mark.svg`.
 3. **Voice-over** is Fish Audio's S2.1 Pro free developer API (`model: s2.1-pro-free`), voice
    `7312c38557eb4fb384e3874e8e9cea67`, speed 1.0, WAV. The `tts` field of `script.json` is plain text with respelled
-   abbreviations («и-эс о-тэ-о», «дуис» as a word, ЦАБД УИС and МВД expanded); stress marks do not work with this
+   abbreviations («и-эс О-Тэ-О», chosen by the client from an A/B clip; «дуис» as a word; ЦАБД УИС and МВД expanded); stress marks do not work with this
    model (see the TTS notes in `docs/02-is-oto-script.md`), so residual stress errors are fixed line by line. Each line is
    generated twice and `select_takes.py` keeps the take that faster-whisper transcribes most faithfully. The paid
    `s2.1-pro` endpoint answers HTTP 402 on this key (no API credit).

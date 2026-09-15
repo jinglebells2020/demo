@@ -118,7 +118,7 @@ shapes, counters, cards). "t" is the scene start in the delivered cut.
   separate the two sets either. The `tts` text is therefore plain; stress errors are fixed per line by re-rolling the
   take or rewording (a synonym, another case form), and verified by ear.
 - **Abbreviations.** Hyphenated UPPERCASE letters («И-С О-Т-О») are read as English letter names and plain uppercase
-  («ИС ОТО») as a word, so ИС ОТО is written «и-эс о-тэ-о» and expanded once in the opening line; ДУИС is spoken as the
+  («ИС ОТО») as a word, so ИС ОТО is written «и-эс О-Тэ-О» (the client chose «и-эс» from the lowercase spelling and «О-Тэ-О» from the capitalised letter names in an A/B clip of seven spellings) and expanded once in the opening line; ДУИС is spoken as the
   word «дуис», as staff say it; ЦАБД УИС and МВД are expanded to words (центральная база данных
   уголовно-исполнительной системы; Министерство внутренних дел); СКУД = «скуд», КПП = «ка-пэ-пэ», 1С = «один-эс»,
   Face ID = «фейс-айди», Excel = «эксель», А4 = «а-четыре», PIN = «пин-кодом».

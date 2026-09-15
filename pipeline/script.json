@@ -9,13 +9,13 @@
   "format": "wav",
   "takes": "two plain-text takes per line (voiceover-v6p1/, voiceover-v6p2/), the cleaner one selected by faster-whisper (medium) word confidence and script match"
  },
- "tts_notes": "Plain text, no stress marks: the S2.1 model does NOT honour U+0301 (or +, or uppercase vowels) — marked words came out with the stress moved to a random syllable, and on the marked v4 take 40 words were wrong against a handful on the plain v3 take. Abbreviations: ИС ОТО = и-эс о-тэ-о (letters) and expanded once in the opening line; ДУИС = the word дуис; ЦАБД УИС and МВД are expanded to words; СКУД = скуд, КПП = ка-пэ-пэ, 1С = один-эс, Face ID = фейс-айди, Excel = эксель, А4 = а-четыре, PIN = пин-кодом. Stress can only be fixed per line by re-rolling takes or rewording; there is no textual stress control in this model.",
+ "tts_notes": "Plain text, no stress marks: the S2.1 model does NOT honour U+0301 (or +, or uppercase vowels) — marked words came out with the stress moved to a random syllable, and on the marked v4 take 40 words were wrong against a handful on the plain v3 take. Abbreviations: ИС ОТО = «и-эс О-Тэ-О» (the client picked «и-эс» from the lowercase form and «О-Тэ-О» from the capitalised letter names in an A/B clip) and expanded once in the opening line; ДУИС = the word дуис; ЦАБД УИС and МВД are expanded to words; СКУД = скуд, КПП = ка-пэ-пэ, 1С = один-эс, Face ID = фейс-айди, Excel = эксель, А4 = а-четыре, PIN = пин-кодом. Stress can only be fixed per line by re-rolling takes or rewording; there is no textual stress control in this model.",
  "scenes": [
   {
    "n": 1,
    "act": "A",
    "text": "Добро пожаловать в ИС ОТО — информационную систему организации труда осуждённых.",
-   "tts": "Добро пожаловать в и-эс о-тэ-о — информационную систему организации труда осуждённых."
+   "tts": "Добро пожаловать в и-эс О-Тэ-О — информационную систему организации труда осуждённых."
   },
   {
    "n": 2,
@@ -129,7 +129,7 @@
    "n": 20,
    "act": "C",
    "text": "ИС ОТО работает как модуль расширения над ЦАБД УИС и связывает реестр осуждённых, события СКУД, электронную подпись и обмен с 1С в одном контуре.",
-   "tts": "и-эс о-тэ-о работает как модуль расширения над центральной базой данных уголовно-исполнительной системы и связывает реестр осуждённых, события скуд, электронную подпись и обмен с один-эс в одном контуре."
+   "tts": "и-эс О-Тэ-О работает как модуль расширения над центральной базой данных уголовно-исполнительной системы и связывает реестр осуждённых, события скуд, электронную подпись и обмен с один-эс в одном контуре."
   },
   {
    "n": 21,
@@ -201,7 +201,7 @@
    "n": 32,
    "act": "G",
    "text": "Двадцать модулей, семь ролей, два языка и ноль внешних обращений. ИС ОТО построена по Правилам организации труда осуждённых — приказу МВД Республики Казахстан номер семьсот тридцать пять.",
-   "tts": "Двадцать модулей, семь ролей, два языка и ноль внешних обращений. и-эс о-тэ-о построена по Правилам организации труда осуждённых — приказу Министерства внутренних дел Республики Казахстан номер семьсот тридцать пять."
+   "tts": "Двадцать модулей, семь ролей, два языка и ноль внешних обращений. и-эс О-Тэ-О построена по Правилам организации труда осуждённых — приказу Министерства внутренних дел Республики Казахстан номер семьсот тридцать пять."
   },
   {
    "n": 33,
