@@ -19,7 +19,13 @@ live demo stand at https://kuis-oto-app-production.up.railway.app.
 | `voiceover/` | Final VO (male voice `7312c38557eb4fb384e3874e8e9cea67`, speed 1.1); `voiceover-v1-…`, `voiceover-v2-…` are the earlier takes |
 | `audio/` | Synthesized ambient bed (`music_bed.wav`, ffmpeg-generated placeholder) and the final `mix.mp3` |
 | `build/` | Generated `edit.jsx` + `fetch.sh` for the Higgsfield sandbox |
-| `renders/` | Storyboard sheet and the rendered video (see below) |
+| `renders/` | `storyboard.png` (one frame per scene) and `is-oto-overview-720p.mp4` (preview); the 1080p master is on Higgsfield storage (link below) |
+
+## Deliverables
+
+- **1080p master** (H.264 8 Mbps + AAC, 4:23, 195 MB): https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/e9fdd0e3-db96-416f-bb99-c7985e99639e.mp4
+- **720p preview** (30 MB): `renders/is-oto-overview-720p.mp4` (also https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/97244932-cadb-4add-896a-1edd8aead745.mp4)
+- **Storyboard** (32 scene frames): `renders/storyboard.png`
 
 ## How the video is made (Harvey's recipe, our tools)
 
