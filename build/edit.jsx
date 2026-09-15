@@ -295,7 +295,7 @@ export default async ({ project, icon }) => {
     ]);
   }
   scene(12, C.paper3, [
-    win('recruitment_new', { x: 100, y: 56, w: 1100, h: 968, pan: 420, pdelay: 0.8, pdur: D(12) - 1 }),
+    win('recruitment_new', { x: 100, y: 56, w: 1100, h: 968, pan: 700, pdelay: 0.6, pdur: D(12) - 0.8, dur: D(12) }),
     card({ x: 1260, y: 300, w: 560, h: 440, at: 0.5, children: [
       tx('Запрос на подбор', { x: 32, y: 28, w: 500, h: 40, size: 28, font: 'sans600' }),
       ...[['Профессия', 'Швея', 1.2], ['Количество', '25 человек', 2.0], ['Разряд', 'не ниже 3', 2.8]].map(([k, v, at], i) => (
@@ -480,7 +480,7 @@ export default async ({ project, icon }) => {
       </frame>
       {tx('сквозных сценариев\nпроверяют изоляцию данных\nпри каждой сборке', { x: 60, y: 340, w: 460, h: 150, size: 24, color: C.ink2, lh: 1.3, reveal: 1.4 })}
       <rect x={550} y={70} width={1} height={420} fill={C.line} />
-      {tx('0', { x: 600, y: 0, w: 460, h: 260, size: 200, font: 'serif', reveal: 0.9 })}
+      {tx('0', { x: 600, y: 70, w: 460, h: 260, size: 200, font: 'serif', reveal: 0.9 })}
       {tx('внешних обращений\nв рантайме: шрифты, иконки\nи графики — локальные', { x: 600, y: 340, w: 460, h: 150, size: 24, color: C.ink2, lh: 1.3, reveal: 1.6 })}
     </frame>,
   ]);
