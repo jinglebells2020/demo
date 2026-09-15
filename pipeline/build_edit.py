@@ -28,7 +28,7 @@ ASSETS = json.load(open(os.path.join(ROOT, "pipeline", "assets.json")))  # name 
 SIZES.update({"mark3d.png": [2688, 1520], "cubes.png": [2688, 1520], "devices.png": [2688, 1520],
               "mark3d.mp4": [1920, 1080], "cubes.mp4": [1920, 1080], "admin-tour.mp4": [1600, 1000], "staff-tour.mp4": [1600, 1000]})
 media_names = [n for n in ASSETS if n.split(".")[-1] in ("png", "mp4")]
-asset_keys = {n: n.rsplit(".", 1)[0].replace("-", "_") for n in media_names}
+asset_keys = {n: n.rsplit(".", 1)[0].replace("-", "_") + ("_mp4" if n.endswith(".mp4") else "") for n in media_names}
 
 JSX = r'''
 export default async ({ project, icon }) => {
@@ -41,6 +41,7 @@ export default async ({ project, icon }) => {
   const TOTAL = __TOTAL__;
   const MAP = __MAP__;
   const SIZES = __SIZES__;
+  const FILE_OF = __FILE_OF__;
   const FONT_MODE = '__FONT_MODE__';
   const WORD_MOTION = __WORD_MOTION__;
   const RENDER_MODE = '__RENDER_MODE__';
@@ -81,7 +82,7 @@ __ASSET_ADDS__
     } else if (o.animate) props.animate = o.animate;
     return <text {...props}>{s}</text>;
   };
-  const mh = (k, w) => Math.round(w * SIZES[k][1] / SIZES[k][0]);
+  const mh = (k, w) => { const f = FILE_OF[k] || k; return Math.round(w * SIZES[f][1] / SIZES[f][0]); };
   const enter = (extra) => ({ motion: { enter: { from: { opacity: 0, ...(extra || {}) }, duration: 0.45 } } });
   const ico = (name, o) => (
     <frame x={o.x} y={o.y} width={o.size} height={o.size} layout="column" align="center" justify="center">
@@ -111,7 +112,7 @@ __ASSET_ADDS__
         <frame x={1} y={1} width={w - 2} height={h - 2} layout="none" clip radius={r - 1} background={C.sheet}>
           <media {...media} />
         </frame>
-        {o.children || null}
+        {o.children || []}
       </frame>);
   }
   const card = (o) => {
@@ -269,14 +270,14 @@ __ASSET_ADDS__
     const d = D(10); const still = Math.min(5.5, d);
     scene(10, C.paper3, [
       win('dashboard', { x: 100, y: 56, w: 1720, h: 968, zoom: 1.18, dur: still, duration: still }),
-      ...(d > still ? [win('admin_tour', { x: 100, y: 56, w: 1720, h: 968, mh: 1075, trim: 9.5, at: still, fade: true, dur: d - still })] : []),
+      ...(d > still ? [win('admin_tour_mp4', { x: 100, y: 56, w: 1720, h: 968, mh: 1075, trim: 9.5, at: still, fade: true, dur: d - still })] : []),
     ]);
   }
   {
     const d = D(11); const vid = Math.min(6.0, d);
     scene(11, C.paper3, [
       win('facilities_catalog', { x: 100, y: 56, w: 1720, h: 968, zoom: 1.12, dur: d }),
-      win('admin_tour', { x: 100, y: 56, w: 1720, h: 968, mh: 1075, trim: 22.0, duration: vid, dur: vid }),
+      win('admin_tour_mp4', { x: 100, y: 56, w: 1720, h: 968, mh: 1075, trim: 22.0, duration: vid, dur: vid }),
     ]);
   }
   scene(12, C.paper3, [
@@ -297,7 +298,7 @@ __ASSET_ADDS__
         {tx(label, { x: 0, y: 0, w: 640, h: 40, size: 26, font: 'sans600' })}
         <rect x={0} y={56} width={640} height={824} radius={14} fill={C.sheet} strokeColor={C.line2} strokeWidth={2} />
         <frame x={1} y={57} width={638} height={822} layout="none" clip radius={13} background={C.sheet}>
-          <media file={A[k]} x={0} y={0} width={SIZES[k + '.png'][0]} height={SIZES[k + '.png'][1]} />
+          <media file={A[k]} x={0} y={0} width={SIZES[FILE_OF[k]][0]} height={SIZES[FILE_OF[k]][1]} />
         </frame>
         <rect x={0} y={56} width={5} height={824} radius={2} fill={C.clay} />
       </frame>);
@@ -424,7 +425,7 @@ __ASSET_ADDS__
       <rect x={0} y={0} width={1200} height={860} radius={40} fill="#26231d" />
       <rect x={20} y={20} width={1160} height={820} radius={24} fill="#0f0e0c" />
       <frame x={32} y={32} width={1136} height={796} layout="none" clip radius={14} background={C.sheet}>
-        <media file={A[k]} x={0} y={0} width={1136} height={mh(k + '.png', 1136)} />
+        <media file={A[k]} x={0} y={0} width={1136} height={mh(k, 1136)} />
       </frame>
     </frame>);
   scene(25, C.paper3, [
@@ -490,7 +491,7 @@ __ASSET_ADDS__
             <rect x={24} y={26} width={32} height={32} radius={16} fill={C.clay} />
             {tx(String(i + 1), { x: 24, y: 29, w: 32, h: 30, size: 20, font: 'sans600', color: '#ffffff', align: 'center' })}
             {tx(label, { x: 76, y: 26, w: 480, h: 36, size: 22, font: 'sans500' })}
-            {i < 3 ? <rect x={286} y={84} width={4} height={46} fill={C.line2} animate={[{ property: 'scaleY', from: 0, to: 1, at: 0.3, duration: 0.3 }]} /> : null}
+            {...(i < 3 ? [<rect x={286} y={84} width={4} height={46} fill={C.line2} animate={[{ property: 'scaleY', from: 0, to: 1, at: 0.3, duration: 0.3 }]} />] : [])}
           </frame>)),
       ] }),
     ]);
@@ -536,6 +537,7 @@ out = (JSX.replace("__TIMING__", json.dumps({n: {"at": s["at"], "dur": s["dur"]}
           .replace("__TOTAL__", str(timing["total"]))
           .replace("__MAP__", json.dumps({k: MAP[k] for k in ("w", "h", "oblasts", "cities", "lakes")}, ensure_ascii=False))
           .replace("__SIZES__", json.dumps({k: v for k, v in SIZES.items()}))
+          .replace("__FILE_OF__", json.dumps({v: k for k, v in asset_keys.items()}))
           .replace("__FONT_MODE__", font_mode)
           .replace("__WORD_MOTION__", "true" if word_motion else "false")
           .replace("__RENDER_MODE__", mode)
