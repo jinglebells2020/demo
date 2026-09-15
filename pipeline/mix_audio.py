@@ -17,8 +17,8 @@ for s in T["scenes"]:
     labels.append(f"[v{i}]"); i += 1
 music = os.path.join(ROOT, "audio", "music_bed.wav")
 inputs += ["-i", music]
-filters.append(f"[{i}:a]aformat=sample_rates=44100:channel_layouts=stereo,atrim=0:{total},volume=0.26,afade=t=in:st=0:d=2.5,afade=t=out:st={total-4:.2f}:d=4[m]")
-filters.append("".join(labels) + f"amix=inputs={len(labels)}:normalize=0,volume=1.15[vo]")
+filters.append(f"[{i}:a]aformat=sample_rates=44100:channel_layouts=stereo,apad=whole_dur={total},atrim=0:{total},volume=0.26,afade=t=in:st=0:d=2.5,afade=t=out:st={total-4:.2f}:d=4[m]")
+filters.append("".join(labels) + f"amix=inputs={len(labels)}:normalize=0,volume=1.15,apad=whole_dur={total}[vo]")
 filters.append("[vo]asplit=2[vo1][vo2]")
 # duck the music under speech: sidechain compressor keyed by the voice track
 filters.append("[m][vo2]sidechaincompress=threshold=0.035:ratio=5:attack=60:release=700:makeup=1[md]")
