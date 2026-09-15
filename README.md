@@ -4,9 +4,9 @@ Reference: https://youtu.be/ydIT4EdLK54 (Harvey, 3:52). Target: the same kind of
 **ИС ОТО** (информационная система организации труда осуждённых, КУИС МВД РК · AltaiLabs), built from the
 live demo stand at https://kuis-oto-app-production.up.railway.app.
 
-Current cut: **v4** (5:26, 33 scenes): the voice re-generated with explicit stress marks on every word, abbreviations
-that read naturally (ИС ОТО letter by letter, ДУИС as a word, ЦАБД УИС and МВД in words), the better of two takes per
-line picked by whisper confidence, and a mix without compressor or limiter. v3 put the supplied orchestral track under
+Current cut: **v5** (5:20, 33 scenes): plain-text voice (the stress marks of v4 turned out to break the model's own
+stress placement and were removed), abbreviations that read naturally (ИС ОТО letter by letter, ДУИС as a word, ЦАБД УИС
+and МВД in words), the better of two takes per line picked by whisper confidence, and a mix without compressor or limiter. v3 put the supplied orchestral track under
 the v2 picture; v2 re-voiced the whole film with the Fish Audio S2.1 Pro free API, fixed every point flagged on v1 (logo, the «70 %» claim, kiosk camera, aimless pans, the
 role comparison, 1С, the discrepancy form, real report exports, the closing facts) and adds two AI beats.
 
@@ -30,12 +30,12 @@ role comparison, 1С, the discrepancy form, real report exports, the closing fac
 | `build/` | Generated `edit.jsx` + `fetch.sh` for the Higgsfield sandbox |
 | `renders/` | `storyboard.png` (one frame per scene) and `is-oto-overview-720p.mp4` (preview); the 1080p master is on Higgsfield storage (link below) |
 
-## Deliverables (v4)
+## Deliverables (v5)
 
-- **1080p master** (H.264 8 Mbps + AAC, 5:26): https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/d66a8900-d6d3-4ab5-8887-317216985174.mp4
-- **720p preview**: `renders/is-oto-overview-720p.mp4` (also https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/4306d307-5ef0-41b5-8ed7-7241c9f73da4.mp4)
+- **1080p master** (H.264 8 Mbps + AAC, 5:20): https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/99f6417f-5b4d-4e85-8f27-c0dbf882db6a.mp4
+- **720p preview**: `renders/is-oto-overview-720p.mp4` (also https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/f3698967-0cc5-4eed-aeef-21998ff54794.mp4)
 - **Storyboard** (33 scene frames): `renders/storyboard.png` (also https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/608d6a76-1f75-44f4-8ec6-25d2dfb66626.png)
-- Earlier masters, for comparison: v3 (orchestral track, old voice) https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/07ab240f-1804-4c77-a8c4-beaf9a308810.mp4 · v2 (generated ambient bed) https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/474f7569-633d-4266-b783-1d3a3e883d8c.mp4 · v1 https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/e9fdd0e3-db96-416f-bb99-c7985e99639e.mp4
+- Earlier masters, for comparison: v4 (stress-marked voice, rejected) https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/d66a8900-d6d3-4ab5-8887-317216985174.mp4 · v3 (orchestral track, v2 voice) https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/07ab240f-1804-4c77-a8c4-beaf9a308810.mp4 · v2 (generated ambient bed) https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/474f7569-633d-4266-b783-1d3a3e883d8c.mp4 · v1 https://d2ol7oe51mr4n9.cloudfront.net/user_31atjlaXAU1IpCmsqXVnqqFDL41/e9fdd0e3-db96-416f-bb99-c7985e99639e.mp4
 
 ## How the video is made (Harvey's recipe, our tools)
 
@@ -47,13 +47,13 @@ role comparison, 1С, the discrepancy form, real report exports, the closing fac
    kiosk person clip) were generated with Higgsfield (`gpt_image_2_5` + `seedance_2_5`). The logo itself is the
    product's own `public/proto/logo-mark.svg`.
 3. **Voice-over** is Fish Audio's S2.1 Pro free developer API (`model: s2.1-pro-free`), voice
-   `7312c38557eb4fb384e3874e8e9cea67`, speed 1.0, WAV. The `tts` field of `script.json` carries a stress mark on every
-   polysyllabic word (the model honours U+0301) and respelled abbreviations (a stress mark on every letter name of
-   ИС ОТО, «дуи́с» as a word, ЦАБД УИС and МВД expanded), see the TTS notes in `docs/02-is-oto-script.md`. Each line is
+   `7312c38557eb4fb384e3874e8e9cea67`, speed 1.0, WAV. The `tts` field of `script.json` is plain text with respelled
+   abbreviations («и-эс о-тэ-о», «дуис» as a word, ЦАБД УИС and МВД expanded); stress marks do not work with this
+   model (see the TTS notes in `docs/02-is-oto-script.md`), so residual stress errors are fixed line by line. Each line is
    generated twice and `select_takes.py` keeps the take that faster-whisper transcribes most faithfully. The paid
    `s2.1-pro` endpoint answers HTTP 402 on this key (no API credit).
-4. **Music** is the supplied orchestral track (2:39 of music in a 2:54 file), slowed by 4 % so that two passes span
-   the 5:26 film: it plays once and is crossfaded at 2:39 into a second pass timed so that its final chord lands on the
+4. **Music** is the supplied orchestral track (2:39 of music in a 2:54 file), slowed by 3 % so that two passes span
+   the 5:20 film: it plays once and is crossfaded at 2:36 into a second pass timed so that its final chord lands on the
    fade to black. It sits 12 dB under the voice and a further 9 dB down while the narrator speaks, following an
    explicit envelope (`mix_audio.py`); nothing in the chain compresses or limits. The procedural bed from
    `make_music.py` is the fallback when no track is supplied.
